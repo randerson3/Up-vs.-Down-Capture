@@ -35,9 +35,8 @@ def get_data(start, end, tckr_list, per):
     stock_data = pd.DataFrame()
     for tckr in tckr_list:
         data = yf.download(tckr, start, end)  # function to actually grab the data
-        if per == 'Y':
-            data = data.iloc[((len(
-                data.index) - 1) % 252)::252].pct_change().dropna()  # converts price data into yearly returns data
+        if per == 'D':
+            data = data.pct_change().dropna()  # converts price data into yearly returns data
         elif per == 'M':
             data = data.iloc[((len(
                 data.index) - 1) % 21)::21].pct_change().dropna()  # converts price data into Monthly returns data
