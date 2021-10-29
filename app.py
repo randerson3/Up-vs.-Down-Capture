@@ -13,8 +13,8 @@ app.config["DEBUG"] = True
 @app.route('/api/v1/capture', methods=['POST'])
 def create_upside_downside():
 
-    start = request.json["start"]
-    end = request.json["end"]
+    start = dt.datetime.strptime(request.json["start"], '%Y-%m-%d').date()
+    end = dt.datetime.strptime(request.json["end"], '%Y-%m-%d').date()
     tckr_list = request.json["tckr_list"]
     per = request.json["per"]
 
@@ -24,13 +24,7 @@ def create_upside_downside():
     return capture_calcs.to_json()
 
 def get_data(start, end, tckr_list, per):
-    # Gets the start date, end date, number of stocks to comapare, and the reference stock/index from the user
-    #sector = input(
-    #    "What sector would you like to analyze?(Healthcare, Consumer Discretionary, Energy, Financials, Industrials, REITS, Technology, Media and Telecom, Utilities)")
-    #start = dt.datetime.strptime(input("Enter the starting date(YYYY-MM-DD): "), '%Y-%m-%d').date()
-    #end = dt.datetime.strptime(input("Enter the ending date(YYYY-MM-DD): "), '%Y-%m-%d').date()
-    #per = input("Would you like Annual(Y), Monthly(M), or Weekly(W) Data? ")
-
+    
     # Loop to grab the price data from yahoo finance and combine them into one pandas dataframe
     stock_data = pd.DataFrame()
     for tckr in tckr_list:
