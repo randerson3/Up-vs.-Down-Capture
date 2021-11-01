@@ -51,7 +51,7 @@ def capture(up, down):
     cap = pd.DataFrame()
 
     for i in [up, down]:
-        ref = i.iloc[:, -1] + 1
+        ref = i.iloc[:, 0] + 1
         lis = {}
         for j in i:
             stock = i[j] + 1
